@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}My Posts{% endblock %}
+
+{% block content %}
+    <h2>My Posts</h2>
+    {% for post in posts %}
+        <article>
+            <h3><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h3>
+            <p>Published on {{ post.pub_date|date:"F d, Y" }}</p>
+            <p>Categories: 
+                {% for category in post.categories.all %}
+                    <a href="{% url 'category_posts' category.name %}">{{ category.name }}</a>{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+            <p>{{ post.content|truncatewords:50 }}</p>
+            <p>Comments: {{ post.comment_count }} | Views: {{ post.views }}</p>
+        </article>
+    {% empty %}
+        <p>You haven't created any posts yet.</p>
+    {% endfor %}
+
+    {% include 'pagination.html' %}
+{% endblock %}

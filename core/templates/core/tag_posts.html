@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Posts tagged with {{ tag.name }}{% endblock %}
+
+{% block content %}
+    <h2>Posts tagged with "{{ tag.name }}"</h2>
+    <section class="post-list">
+        {% for post in posts %}
+            <article>
+                <h3><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h3>
+                <p class="post-meta">By {{ post.author.username }} on {{ post.pub_date|date:"F d, Y" }}</p>
+                <p class="post-excerpt">{{ post.content|truncatewords:50 }}</p>
+                <p class="post-stats">Comments: {{ post.comment_count }} | Views: {{ post.views }}</p>
+            </article>
+        {% empty %}
+            <p>No posts available with this tag.</p>
+        {% endfor %}
+    </section>
+
+    {% include 'pagination.html' %}
+{% endblock %}
