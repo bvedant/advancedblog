@@ -11,15 +11,19 @@
 <header>
     <h1>Advanced Blog</h1>
     <nav>
-        <a href="{% url 'post_list' %}">Home</a>
-        {% if user.is_authenticated %}
-            <a href="{% url 'user_posts' %}">My Posts</a>
-            <a href="{% url 'create_post' %}">Create Post</a>
-            <a href="{% url 'logout' %}">Log Out</a>
-        {% else %}
-            <a href="{% url 'login' %}">Log In</a>
-        {% endif %}
-    </nav>
+    <a href="{% url 'post_list' %}">Home</a>
+    {% if user.is_authenticated %}
+        <a href="{% url 'user_posts' %}">My Posts</a>
+        <a href="{% url 'create_post' %}">Create Post</a>
+        <form method="post" action="{% url 'logout' %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit">Log Out</button>
+        </form>
+    {% else %}
+        <a href="{% url 'login' %}">Log In</a>
+        <a href="{% url 'signup' %}">Sign Up</a>
+    {% endif %}
+</nav>
 </header>
 
 {% if messages %}

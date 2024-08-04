@@ -1,10 +1,12 @@
-from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
 from django.db.models import Count
+from django.shortcuts import get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView
+
+from .forms import PostForm, CommentForm, SignUpForm
 from .models import Post, Tag, Comment
-from .forms import PostForm, CommentForm
 
 
 class PostListView(ListView):
@@ -81,3 +83,14 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse_lazy('post_detail', kwargs={'pk': self.kwargs['pk']})
+
+
+class SignUpView(CreateView):
+    form_class = SignUpForm
+    success_url = reverse_lazy('post_list')
+    template_name = 'signup.html'
+
+    def form_valid(self, form):
+        valid = super().form_valid(form)
+        login(self.request, self.object)
+        return valid

@@ -86,3 +86,4 @@ MESSAGE_TAGS = {messages.ERROR: 'alert-danger', messages.WARNING: 'alert-warning
     messages.INFO: 'alert-info', }
 
 LOGIN_REDIRECT_URL = 'post_list'
+LOGOUT_REDIRECT_URL = 'post_list'

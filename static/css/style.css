@@ -1,135 +1,108 @@
+/* Base styles */
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
     color: #333;
-    max-width: 800px;
+    width: 90%;
+    max-width: 1000px;
     margin: 0 auto;
-    padding: 20px;
-    background-color: #f4f4f4;
+    padding: 2%;
 }
 
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 1rem;
-    margin-bottom: 2rem;
+/* Typography */
+h1, h2, h3 {
+    margin-bottom: 1em;
 }
 
-header h1 {
-    margin: 0;
+/* Layout */
+header, main, footer {
+    margin-bottom: 5%;
 }
 
+/* Navigation */
 nav {
-    margin-top: 1rem;
+    margin-bottom: 2%;
+    display: flex;
+    align-items: center;
 }
 
-nav a {
-    color: #fff;
+nav a, nav button {
+    margin-right: 2%;
+    color: #0066cc;
     text-decoration: none;
-    margin-right: 1rem;
-}
-
-nav a:hover {
-    text-decoration: underline;
-}
-
-main {
-    background-color: #fff;
-    padding: 2rem;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-h2, h3 {
-    color: #444;
-}
-
-article {
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #eee;
-}
-
-article:last-child {
-    border-bottom: none;
-}
-
-.pagination {
-    margin-top: 2rem;
-    text-align: center;
-}
-
-.pagination a {
-    margin: 0 0.5rem;
-}
-
-form {
-    max-width: 300px;
-    margin: 0 auto;
-}
-
-form p {
-    margin-bottom: 1rem;
-}
-
-form input[type="text"],
-form input[type="password"],
-form textarea {
-    width: 100%;
-    padding: 0.5rem;
-    margin-top: 0.25rem;
-}
-
-form button[type="submit"] {
-    display: block;
-    width: 100%;
-    padding: 0.5rem;
-    background-color: #007bff;
-    color: white;
+    background: none;
     border: none;
+    font: inherit;
     cursor: pointer;
 }
 
-form button[type="submit"]:hover {
+nav a:hover, nav button:hover {
+    text-decoration: underline;
+}
+
+nav form {
+    display: inline;
+    margin: 0;
+}
+
+nav button {
+    padding: 0;
+}
+
+/* Forms */
+form {
+    margin-bottom: 5%;
+}
+
+input, textarea, button {
+    margin-bottom: 2%;
+    padding: 2%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Auth Forms */
+.auth-form {
+    width: 65%;
+    margin: 0 auto;
+    padding: 5%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.auth-form h2 {
+    margin-bottom: 1em;
+    text-align: center;
+}
+
+.auth-form input {
+    width: 100%;
+    padding: 2%;
+    margin-bottom: 4%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.auth-form button {
+    width: 100%;
+    padding: 2%;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.auth-form button:hover {
     background-color: #0056b3;
 }
 
-footer {
-    margin-top: 2rem;
+/* Articles */
+article {
+    margin-bottom: 5%;
+}
+
+/* Utilities */
+.center {
     text-align: center;
-    color: #777;
-}
-
-.messages {
-    margin-bottom: 1rem;
-}
-
-.alert {
-    padding: 1rem;
-    border-radius: 4px;
-    margin-bottom: 0.5rem;
-}
-
-.alert-success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-}
-
-.alert-info {
-    background-color: #d1ecf1;
-    color: #0c5460;
-    border: 1px solid #bee5eb;
-}
-
-.alert-warning {
-    background-color: #fff3cd;
-    color: #856404;
-    border: 1px solid #ffeeba;
-}
-
-.alert-danger {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
 }
