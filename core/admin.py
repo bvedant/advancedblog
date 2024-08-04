@@ -16,9 +16,6 @@ class PostAdmin(admin.ModelAdmin):
     date_hierarchy = 'pub_date'
     filter_horizontal = ('tags',)
 
-    def get_queryset(self, request):
-        return super().get_queryset(request).prefetch_related('tags')
-
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):

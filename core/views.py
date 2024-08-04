@@ -1,36 +1,10 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView
-from django.db.models import Count
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.db.models import Count
 from .models import Post, Tag, Comment
-from .forms import CommentForm, PostForm
-
-
-class TagPostListView(ListView):
-    template_name = 'core/tag_posts.html'
-    context_object_name = 'posts'
-    paginate_by = 10
-
-    def get_queryset(self):
-        self.tag = get_object_or_404(Tag, name=self.kwargs['tag'])
-        return Post.objects.filter(tags=self.tag).annotate(comment_count=Count('comments')).select_related('author')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['tag'] = self.tag
-        return context
-
-
-class PostCreateView(LoginRequiredMixin, CreateView):
-    model = Post
-    form_class = PostForm
-    template_name = 'core/create_post.html'
-    success_url = reverse_lazy('post_list')
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
+from .forms import PostForm, CommentForm
 
 
 class PostListView(ListView):
@@ -40,7 +14,8 @@ class PostListView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return Post.objects.annotate(comment_count=Count('comments')).select_related('author').prefetch_related('tags').order_by('-pub_date')
+        return Post.objects.annotate(comment_count=Count('comments')).select_related('author').prefetch_related(
+            'tags').order_by('-pub_date')
 
 
 class PostDetailView(DetailView):
@@ -59,19 +34,18 @@ class PostDetailView(DetailView):
         return obj
 
 
-class CategoryPostListView(ListView):
-    template_name = 'core/category_posts.html'
+class TagPostListView(ListView):
+    template_name = 'core/tag_posts.html'
     context_object_name = 'posts'
     paginate_by = 10
 
     def get_queryset(self):
-        self.category = get_object_or_404(Category, name=self.kwargs['category'])
-        return Post.objects.filter(categories=self.category).annotate(comment_count=Count('comments')).select_related(
-            'author')
+        self.tag = get_object_or_404(Tag, name=self.kwargs['tag'])
+        return Post.objects.filter(tags=self.tag).annotate(comment_count=Count('comments')).select_related('author')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['category'] = self.category
+        context['tag'] = self.tag
         return context
 
 
@@ -82,6 +56,17 @@ class UserPostListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Post.objects.filter(author=self.request.user).annotate(comment_count=Count('comments'))
+
+
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'core/create_post.html'
+    success_url = reverse_lazy('post_list')
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 
 class CommentCreateView(LoginRequiredMixin, CreateView):
