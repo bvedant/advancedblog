@@ -66,8 +66,6 @@ input, textarea, button {
     width: 65%;
     margin: 0 auto;
     padding: 5%;
-    border: 1px solid #ddd;
-    border-radius: 4px;
 }
 
 .auth-form h2 {
