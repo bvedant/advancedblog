@@ -21,10 +21,10 @@ class PostListView(ListView):
     template_name = 'core/post_list.html'
     context_object_name = 'posts'
     paginate_by = 10
+    ordering = ['-pub_date']
 
     def get_queryset(self):
-        return Post.objects.annotate(comment_count=Count('comments')).select_related('author').prefetch_related(
-            'tags').order_by('-pub_date')
+        return Post.objects.all().order_by('-pub_date').annotate(comment_count=Count('comments')).select_related('author')
 
 
 class PostDetailView(DetailView):
@@ -50,7 +50,7 @@ class TagPostListView(ListView):
 
     def get_queryset(self):
         self.tag = get_object_or_404(Tag, name=self.kwargs['tag'])
-        return Post.objects.filter(tags=self.tag).annotate(comment_count=Count('comments')).select_related('author')
+        return Post.objects.filter(tags=self.tag).order_by('-pub_date').annotate(comment_count=Count('comments')).select_related('author')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -64,7 +64,7 @@ class UserPostListView(LoginRequiredMixin, ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return Post.objects.filter(author=self.request.user).annotate(comment_count=Count('comments'))
+        return Post.objects.filter(author=self.request.user).order_by('-pub_date').annotate(comment_count=Count('comments'))
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -101,7 +101,6 @@ class SignUpView(CreateView):
         valid = super().form_valid(form)
         login(self.request, self.object)
         return valid
-
 
 
 @login_required
