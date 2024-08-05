@@ -1,106 +1,143 @@
-/* Base styles */
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
     color: #333;
-    width: 90%;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 2%;
+    padding: 20px;
+    background-color: #f4f4f4;
 }
 
-/* Typography */
 h1, h2, h3 {
-    margin-bottom: 1em;
+    color: #2c3e50;
 }
 
-/* Layout */
-header, main, footer {
-    margin-bottom: 5%;
-}
-
-/* Navigation */
-nav {
-    margin-bottom: 2%;
-    display: flex;
-    align-items: center;
-}
-
-nav a, nav button {
-    margin-right: 2%;
-    color: #0066cc;
+a {
+    color: #3498db;
     text-decoration: none;
-    background: none;
-    border: none;
-    font: inherit;
-    cursor: pointer;
 }
 
-nav a:hover, nav button:hover {
+a:hover {
     text-decoration: underline;
 }
 
-nav form {
-    display: inline;
-    margin: 0;
-}
-
-nav button {
-    padding: 0;
-}
-
-/* Forms */
-form {
-    margin-bottom: 5%;
-}
-
-input, textarea, button {
-    margin-bottom: 2%;
-    padding: 2%;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-/* Auth Forms */
-.auth-form {
-    width: 65%;
-    margin: 0 auto;
-    padding: 5%;
-}
-
-.auth-form h2 {
-    margin-bottom: 1em;
-    text-align: center;
-}
-
-.auth-form input {
-    width: 100%;
-    padding: 2%;
-    margin-bottom: 4%;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-.auth-form button {
-    width: 100%;
-    padding: 2%;
-    background-color: #0066cc;
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.auth-form button:hover {
-    background-color: #0056b3;
+.btn:hover {
+    background-color: #2980b9;
+    text-decoration: none;
 }
 
-/* Articles */
-article {
-    margin-bottom: 5%;
+.btn-secondary {
+    background-color: #95a5a6;
 }
 
-/* Utilities */
-.center {
+.btn-secondary:hover {
+    background-color: #7f8c8d;
+}
+
+.messages {
+    margin-bottom: 20px;
+}
+
+.alert {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+.pagination {
+    margin-top: 20px;
     text-align: center;
+}
+
+.current {
+    font-weight: bold;
+}
+
+.post-list {
+    margin-top: 20px;
+}
+
+.post-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.comments {
+    margin-top: 30px;
+}
+
+.comment {
+    background-color: #ecf0f1;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.add-comment {
+    margin-top: 30px;
+}
+
+.logout-message {
+    background-color: #e8f4fd;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.logout-actions {
+    margin-top: 20px;
+}
+
+.form-footer {
+    margin-top: 20px;
+    font-size: 0.9em;
+}
+
+/* Navigation styles */
+nav {
+    background-color: #34495e;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+nav a {
+    color: white;
+    margin-right: 15px;
+}
+
+nav a:hover {
+    color: #3498db;
+}
+
+/* Footer styles */
+footer {
+    margin-top: 50px;
+    text-align: center;
+    color: #7f8c8d;
+    font-size: 0.9em;
 }
