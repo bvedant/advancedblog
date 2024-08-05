@@ -101,17 +101,28 @@ class SignUpView(CreateView):
         return valid
 
 
+
 @login_required
-@transaction.atomic
-def update_profile(request):
+def view_profile(request):
+    return render(request, 'view_profile.html', {'user': request.user})
+
+def view_user_profile(request, username):
+    user = get_object_or_404(User, username=username)
+    return render(request, 'view_profile.html', {'user': user})
+
+@login_required
+def edit_profile(request):
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, instance=request.user.profile)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            return redirect('profile')
+            return redirect('view_profile')
     else:
         user_form = UserForm(instance=request.user)
         profile_form = ProfileForm(instance=request.user.profile)
-    return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form})
+    return render(request, 'edit_profile.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })
