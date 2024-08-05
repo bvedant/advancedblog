@@ -8,4 +8,5 @@ urlpatterns = [
     path('my_posts/', views.UserPostListView.as_view(), name='user_posts'),
     path('create/', views.PostCreateView.as_view(), name='create_post'),
     path('post/<int:pk>/comment/', views.CommentCreateView.as_view(), name='add_comment'),
+    path('profile/', views.update_profile, name='profile'),
 ]
