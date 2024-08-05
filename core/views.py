@@ -8,6 +8,11 @@ from django.views.generic import ListView, DetailView, CreateView
 from .forms import PostForm, CommentForm, SignUpForm
 from .models import Post, Tag, Comment
 
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.db import transaction
+from .forms import UserForm, ProfileForm
+
 
 class PostListView(ListView):
     model = Post
@@ -94,3 +99,30 @@ class SignUpView(CreateView):
         valid = super().form_valid(form)
         login(self.request, self.object)
         return valid
+
+
+
+@login_required
+def view_profile(request):
+    return render(request, 'view_profile.html', {'user': request.user})
+
+def view_user_profile(request, username):
+    user = get_object_or_404(User, username=username)
+    return render(request, 'view_profile.html', {'user': user})
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect('view_profile')
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
+    return render(request, 'edit_profile.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })
